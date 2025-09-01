@@ -1,0 +1,64 @@
+John Doe
+john.doe@email.com
+(555) 123-4567
+LinkedIn: linkedin.com/in/johndoe
+
+PROFESSIONAL SUMMARY
+Experienced software engineer with 5 years of experience in full-stack development, specializing in Python, JavaScript, and cloud technologies. Proven track record of delivering scalable web applications and leading development teams.
+
+TECHNICAL SKILLS
+Programming Languages: Python, JavaScript, Java, SQL
+Frameworks & Libraries: Django, Flask, React, Node.js, Express
+Databases: MySQL, PostgreSQL, MongoDB, Redis
+Cloud Platforms: AWS, Docker, Kubernetes
+Tools & Methodologies: Git, GitHub, Agile, Scrum, CI/CD
+Soft Skills: Leadership, Communication, Problem Solving, Team Collaboration
+
+PROFESSIONAL EXPERIENCE
+
+Senior Software Engineer | TechCorp Inc. | 2021 - Present
+• Led development of microservices architecture using Python and Django
+• Implemented CI/CD pipelines using Jenkins and Docker
+• Managed team of 4 developers using Agile methodologies
+• Improved application performance by 40% through database optimization
+• Collaborated with cross-functional teams to deliver high-quality software
+
+Software Developer | StartupXYZ | 2019 - 2021
+• Developed full-stack web applications using React and Node.js
+• Created RESTful APIs using Express.js and MongoDB
+• Implemented automated testing using Jest and Mocha
+• Achieved 95% code coverage through comprehensive testing
+• Mentored junior developers and conducted code reviews
+
+Junior Developer | WebSolutions | 2018 - 2019
+• Built responsive web applications using HTML, CSS, and JavaScript
+• Worked with MySQL databases and PHP backend
+• Participated in Agile development processes
+• Contributed to open-source projects on GitHub
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of Technology | 2014 - 2018
+GPA: 3.8/4.0
+
+CERTIFICATIONS
+• AWS Certified Developer Associate
+• Certified Scrum Master (CSM)
+• MongoDB Certified Developer
+
+PROJECTS
+E-Commerce Platform | Python, Django, React, PostgreSQL
+• Built a full-featured e-commerce platform with payment integration
+• Implemented user authentication and authorization
+• Deployed on AWS using Docker containers
+
+Task Management App | Node.js, Express, MongoDB
+• Developed a collaborative task management application
+• Real-time updates using WebSocket connections
+• Mobile-responsive design with React Native
+
+ACHIEVEMENTS
+• Employee of the Year 2022 at TechCorp Inc.
+• Led successful migration of legacy system to microservices
+• Reduced deployment time by 60% through automation
+• Mentored 3 junior developers to senior positions
