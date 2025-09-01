@@ -1,9 +1,4 @@
 #!/usr/bin/env python3
-"""
-Test script for Resume + Cover Letter Assistant
-This script tests the core functionality using sample files.
-"""
-
 import os
 import sys
 from resume_analyzer import ResumeAnalyzer

@@ -2,7 +2,6 @@ import re
 import os
 from datetime import datetime
 from resume_analyzer import ResumeAnalyzer
-
 class CoverLetterGenerator:
     def __init__(self):
         self.analyzer = ResumeAnalyzer()
