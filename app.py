@@ -45,4 +45,22 @@ def analyze_r():
         return jsonify(res)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+@app.route('/generate-cover-letter', methods=['POST'])
+def generate_cl():
+    try:
+        d = request.get_json()
+        r_p = d.get('resume_path')
+        j_d = d.get('job_description')
+        c_n = d.get('company_name', '')
+        p_t = d.get('position_title', '')
+        if not r_p or not j_d:
+            return jsonify({'error': 'Resume path and job description are required'}), 400
+        gen = CoverLetterGenerator()
+        cl = gen.generate_cl(r_p, j_d, c_n, p_t)
+        return jsonify({'cover_letter': cl})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)
+
 
