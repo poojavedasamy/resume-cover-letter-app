@@ -4,19 +4,14 @@ import os
 from werkzeug.utils import secure_filename
 from resume import ResumeAnalyzer
 from cover_letter import CoverLetterGenerator
-
 app = Flask(__name__)
 CORS(app)
-
 U_DIR = 'uploads'
 EXTS = {'pdf', 'docx', 'doc', 'txt'}
 app.config['UPLOAD_FOLDER'] = U_DIR
-
 os.makedirs(U_DIR, exist_ok=True)
-
 def ok_f(fn):
     return '.' in fn and fn.rsplit('.', 1)[1].lower() in EXTS
-
 @app.route('/')
 def home():
     return render_template('index.html')
