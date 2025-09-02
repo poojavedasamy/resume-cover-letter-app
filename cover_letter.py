@@ -2,7 +2,6 @@ import re
 import os
 from datetime import datetime
 from resume import ResumeAnalyzer
-
 class CoverLetterGenerator:
     def __init__(self):
         self.anl = ResumeAnalyzer()
@@ -25,13 +24,17 @@ class CoverLetterGenerator:
         }
     def extract_info(self, r_text):
         lines = r_text.split('\n')
-        name = lines[0].strip() if lines else "Your Name"
-        
+        name = lines[0].strip() if lines else "Your Name"        
         email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-        email = re.search(email_pattern, r_text).group() if re.search(email_pattern, r_text) else "your.email@example.com"
-        
+        email = re.search(email_pattern, r_text).group() if re.search(email_pattern, r_text) else "your.email@example.com" 
         phone_pattern = r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}'
-        phone = re.search(phone_pattern, r_text).group() if re.search(phone_pattern, r_text) else "(555) 123-4567"
-        
+        phone = re.search(phone_pattern, r_text).group() if re.search(phone_pattern, r_text) else "(555) 123-4567"    
         return {'name': name, 'email': email, 'phone': phone}
-    
+    def extract_skills(self, r_text, j_desc):
+        c_res = self.anl.preprocess(r_text)
+        c_job = self.anl.preprocess(j_desc)   
+        r_kws, r_skills = self.anl.extract_kws(c_res)
+        j_kws, j_skills = self.anl.extract_kws(c_job)    
+        m_skills = [s for cat, s_list in r_skills.items() if cat in j_skills for s in s_list]
+        m_kws = [k for k in r_kws if k in j_kws and len(k) > 3]    
+        return list(set(m_skills + m_kws[:5]))[:8]
