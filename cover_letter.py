@@ -39,7 +39,6 @@ class CoverLetterGenerator:
         m_kws = [k for k in r_kws if k in j_kws and len(k) > 3]    
         return list(set(m_skills + m_kws[:5]))[:8]
     def generate_achievements(self, r_text):
-        """Generates achievement statements based on resume content."""
         achs = [
             "delivering high-quality results in fast-paced environments",
             "collaborating effectively with cross-functional teams",
@@ -47,8 +46,7 @@ class CoverLetterGenerator:
         ]
         
         ach_kws = ['achieved', 'increased', 'improved', 'developed', 'led', 'managed', 'created']
-        achs.extend([f"successfully {k} various initiatives" for k in ach_kws if k in r_text.lower()])
-        
+        achs.extend([f"successfully {k} various initiatives" for k in ach_kws if k in r_text.lower()])   
         return achs[:3] 
     def infer_values(self, j_desc):
         values_kws = {
@@ -59,7 +57,57 @@ class CoverLetterGenerator:
             'customer_focus': ['customer', 'client', 'service', 'satisfaction']
         }    
         j_desc_lower = j_desc.lower()
-        found_values = [v for v, kws in values_kws.items() if any(k in j_desc_lower for k in kws)]
-        
+        found_values = [v for v, kws in values_kws.items() if any(k in j_desc_lower for k in kws)]   
         return found_values[:2] if found_values else ['excellence', 'innovation']
+    def infer_industry(self, j_desc):
+        industry_kws = {
+            'technology': ['software', 'technology', 'digital', 'tech', 'programming'],
+            'healthcare': ['healthcare', 'medical', 'patient', 'clinical'],
+            'finance': ['financial', 'banking', 'investment', 'accounting'],
+            'education': ['education', 'teaching', 'learning', 'academic'],
+            'marketing': ['marketing', 'advertising', 'brand', 'campaign']
+        }   
+        j_desc_lower = j_desc.lower()
+        for industry, kws in industry_kws.items():
+            if any(k in j_desc_lower for k in kws):
+                return industry
+        return "business"  
+    def generate_cl(self, r_path, j_desc, c_name="", p_title=""):
+        try:
+            r_text = self.anl.extract_text(r_path)      
+            p_info = self.extract_info(r_text)
+            k_skills = self.extract_skills(r_text, j_desc)
+            k_skills_text = ', '.join(k_skills) if k_skills else "relevant skills"        
+            achs = self.generate_achievements(r_text)
+            achs_text = ' and '.join(achs)       
+            c_values = self.infer_values(j_desc)
+            c_values_text = ' and '.join(c_values)        
+            i_focus = self.infer_industry(j_desc)        
+            c_name = c_name or "your company"
+            p_title = p_title or "the position"        
+            import random        
+            opening = random.choice(self.tmpls['opening']).format(
+                position=p_title, company=c_name, key_skills=k_skills_text
+            )        
+            body = random.choice(self.tmpls['body']).format(
+                key_skills=k_skills_text, achievements=achs_text, company=c_name,
+                company_values=c_values_text, industry_focus=i_focus
+            )        
+            closing = random.choice(self.tmpls['closing']).format(company=c_name)        
+            cl = f"""
+{p_info['name']}
+{p_info['email']}
+{p_info['phone']}
+{datetime.now().strftime('%B %d, %Y')}
+{c_name}
+Dear Hiring Manager,
+{opening}
+{body}
+{closing}
+Sincerely,
+{p_info['name']}
+"""
+            return cl.strip()            
+        except Exception as e:
+            raise Exception(f"Error generating cover letter: {str(e)}")
     
