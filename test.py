@@ -50,3 +50,29 @@ def test_cover_letter_generator():
     except Exception as e:
         print(f"❌ An unexpected error occurred: {e}")
         return False
+def run_tests():
+    print("🚀 Starting Resume & Cover Letter Assistant Tests")
+    print("=" * 60) 
+    tests = [
+        ("Resume Analyzer", test_resume_analyzer),
+        ("Cover Letter Generator", test_cover_letter_generator)
+    ]
+    passed = 0
+    total = len(tests)
+    for name, func in tests:
+        if func():
+            print(f"✅ {name} PASSED\n")
+            passed += 1
+        else:
+            print(f"❌ {name} FAILED\n")
+    print("=" * 60)
+    print(f"📊 Test Results: {passed}/{total} tests passed.")
+    if passed == total:
+        print("🎉 All tests passed!")
+        print("The application is ready to use.")
+        return 0
+    else:
+        print("⚠️ Some tests failed. Please review the output above.")
+        return 1
+if __name__ == "__main__":
+    sys.exit(run_tests())
