@@ -25,7 +25,7 @@ def upload_r():
             return jsonify({'error': 'No file selected'}), 400
         if f and ok_f(f.filename):
             fn = secure_filename(f.filename)
-            fp = os.path.join(a.config['UPLOAD_FOLDER'], fn)
+            fp = os.path.join(app.config['UPLOAD_FOLDER'], fn)
             f.save(fp)
             return jsonify({'message': 'Resume uploaded successfully', 'filename': fn, 'filepath': fp})
         else:

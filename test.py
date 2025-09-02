@@ -13,7 +13,7 @@ def test_resume_analyzer():
         with open(job_path, 'r', encoding='utf-8') as f:
             job_desc = f.read()
         analyzer = ResumeAnalyzer()
-        results = analyzer.analyze_resume(res_path, job_desc)
+        results = analyzer.analyze(res_path, job_desc)
         if 'error' in results:
             print(f"❌ Analysis failed: {results['error']}")
             return False
@@ -35,12 +35,12 @@ def test_cover_letter_generator():
         with open(job_path, 'r', encoding='utf-8') as f:
             job_desc = f.read()
         generator = CoverLetterGenerator()
-        cover_letter = generator.generate_cover_letter(
-            resume_path=res_path,
-            job_description=job_desc,
-            company_name="InnovativeTech Solutions",
-            position_title="Senior Full-Stack Software Engineer"
-        )   
+        cover_letter = generator.generate_cl(
+            r_path=res_path,
+            j_desc=job_desc,
+            c_name="InnovativeTech Solutions",
+            p_title="Senior Full-Stack Software Engineer"
+        )
         if cover_letter.startswith("Error"):
             print(f"❌ Generation failed: {cover_letter}")
             return False    
