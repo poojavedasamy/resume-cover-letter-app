@@ -29,7 +29,6 @@ class ResumeAnalyzer:
             'soft_skills': ['leadership', 'communication', 'teamwork', 'problem solving', 'time management']
         }  
     def extract_text(self, p):
-        """Extracts text from various file types."""
         ext = p.lower().split('.')[-1]
         try:
             if ext == 'pdf':
@@ -48,3 +47,23 @@ class ResumeAnalyzer:
                 raise ValueError(f"Unsupported file type: {ext}")
         except Exception as e:
             raise Exception(f"Error extracting text from file: {str(e)}")
+    def preprocess(self, t):
+        t = t.lower()
+        t = re.sub(r'[^\w\s]', ' ', t)
+        return re.sub(r'\s+', ' ', t).strip()
+    
+    def extract_kws(self, t):
+        tokens = word_tokenize(t)
+        kws = [w for w in tokens if w not in self.stop_words and len(w) > 2]
+        s_found = {c: [s for s in sl if s in t] for c, sl in self.skills.items()}
+        s_found = {k: v for k, v in s_found.items() if v}
+        return kws, s_found
+    
+    def calc_sim(self, r_text, j_desc):
+        v = TfidfVectorizer(stop_words='english', ngram_range=(1, 2))
+        c_texts = [r_text, j_desc]
+        m = v.fit_transform(c_texts)
+        return cosine_similarity(m[0:1], m[1:2])[0][0]
+    
+    def find_missing_kws(self, r_kws, j_kws):
+        return list(set(j_kws) - set(r_kws))[:20]
