@@ -32,3 +32,17 @@ def upload_r():
             return jsonify({'error': 'Invalid file type'}), 400
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+@app.route('/analyze-resume', methods=['POST'])
+def analyze_r():
+    try:
+        d = request.get_json()
+        r_p = d.get('resume_path')
+        j_d = d.get('job_description')
+        if not r_p or not j_d:
+            return jsonify({'error': 'Resume path and job description are required'}), 400
+        anl = ResumeAnalyzer()
+        res = anl.analyze(r_p, j_d)
+        return jsonify(res)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
