@@ -38,3 +38,28 @@ class CoverLetterGenerator:
         m_skills = [s for cat, s_list in r_skills.items() if cat in j_skills for s in s_list]
         m_kws = [k for k in r_kws if k in j_kws and len(k) > 3]    
         return list(set(m_skills + m_kws[:5]))[:8]
+    def generate_achievements(self, r_text):
+        """Generates achievement statements based on resume content."""
+        achs = [
+            "delivering high-quality results in fast-paced environments",
+            "collaborating effectively with cross-functional teams",
+            "implementing innovative solutions to complex problems",
+        ]
+        
+        ach_kws = ['achieved', 'increased', 'improved', 'developed', 'led', 'managed', 'created']
+        achs.extend([f"successfully {k} various initiatives" for k in ach_kws if k in r_text.lower()])
+        
+        return achs[:3] 
+    def infer_values(self, j_desc):
+        values_kws = {
+            'innovation': ['innovative', 'cutting-edge', 'technology', 'creative'],
+            'collaboration': ['team', 'collaborative', 'partnership', 'cooperation'],
+            'excellence': ['excellence', 'quality', 'best', 'outstanding'],
+            'growth': ['growth', 'development', 'advancement', 'learning'],
+            'customer_focus': ['customer', 'client', 'service', 'satisfaction']
+        }    
+        j_desc_lower = j_desc.lower()
+        found_values = [v for v, kws in values_kws.items() if any(k in j_desc_lower for k in kws)]
+        
+        return found_values[:2] if found_values else ['excellence', 'innovation']
+    
