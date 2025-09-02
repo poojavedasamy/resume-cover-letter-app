@@ -23,3 +23,15 @@ class CoverLetterGenerator:
                 "Thank you for considering my application. I am excited about the possibility of contributing to {company}'s success and would welcome the chance to discuss this opportunity in person."
             ]
         }
+    def extract_info(self, r_text):
+        lines = r_text.split('\n')
+        name = lines[0].strip() if lines else "Your Name"
+        
+        email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        email = re.search(email_pattern, r_text).group() if re.search(email_pattern, r_text) else "your.email@example.com"
+        
+        phone_pattern = r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}'
+        phone = re.search(phone_pattern, r_text).group() if re.search(phone_pattern, r_text) else "(555) 123-4567"
+        
+        return {'name': name, 'email': email, 'phone': phone}
+    
